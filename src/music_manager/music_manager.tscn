@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://k520gydufmmu"]
+
+[ext_resource type="AudioStream" uid="uid://w5psgdp1lxtd" path="res://assets/sounds/Satie_Gymnopedie_No_1_performed_by_Michael_Laucke.mp3" id="1_p3nap"]
+[ext_resource type="Script" uid="uid://bpcky2yu1acnl" path="res://src/music_manager/music_manager.gd" id="1_xbxwj"]
+
+[node name="MusicManager" type="Node"]
+script = ExtResource("1_xbxwj")
+
+[node name="Music1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_p3nap")
+volume_db = -8.0

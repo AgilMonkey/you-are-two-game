@@ -1,0 +1,96 @@
+[gd_scene load_steps=10 format=3 uid="uid://dwvx81bgtpqyd"]
+
+[ext_resource type="Texture2D" uid="uid://5r5x2e543j3j" path="res://assets/simple_shapes/Square.png" id="1_7ropa"]
+[ext_resource type="Script" uid="uid://btxj2wrnkdw5f" path="res://src/force_color_paletter/force_color_paletter.gd" id="2_1svh0"]
+[ext_resource type="PackedScene" uid="uid://bdaqiv3l6ndpk" path="res://scenes/win_door/win_door.tscn" id="3_no8ro"]
+[ext_resource type="PackedScene" uid="uid://dsg7dc2qdbjxn" path="res://scenes/player/player.tscn" id="4_lxbbh"]
+[ext_resource type="PackedScene" uid="uid://ciux6r8k838u5" path="res://scenes/static_block/static_block.tscn" id="5_j02pt"]
+[ext_resource type="Theme" uid="uid://cf8hd5u4np84a" path="res://default_ui.tres" id="6_kbpoh"]
+[ext_resource type="Script" uid="uid://6en0s5x6k5gf" path="res://scenes/testing/level_label.gd" id="7_2vffl"]
+[ext_resource type="Script" uid="uid://dx64mxyc7jqt5" path="res://src/level_restarter/level_restarter.gd" id="8_yk23b"]
+[ext_resource type="Script" uid="uid://bgqtu27wpxawk" path="res://src/level_win_logic/level_win_logic.gd" id="9_lflqe"]
+
+[node name="Level03" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+self_modulate = Color(0.4862745, 0.24705882, 0.34509805, 1)
+position = Vector2(652, 632)
+scale = Vector2(3.546875, 3.46875)
+texture = ExtResource("1_7ropa")
+metadata/_edit_lock_ = true
+
+[node name="ForceColorPaletter" type="Node" parent="Background"]
+script = ExtResource("2_1svh0")
+metadata/_custom_type_script = "uid://btxj2wrnkdw5f"
+
+[node name="WinDoor" parent="." instance=ExtResource("3_no8ro")]
+position = Vector2(932, 928)
+
+[node name="WinDoor2" parent="." instance=ExtResource("3_no8ro")]
+position = Vector2(932, 528)
+
+[node name="Player" parent="." instance=ExtResource("4_lxbbh")]
+position = Vector2(132, 896)
+
+[node name="Player2" parent="." instance=ExtResource("4_lxbbh")]
+position = Vector2(132, 496)
+
+[node name="StaticBlock" parent="." instance=ExtResource("5_j02pt")]
+position = Vector2(536, 960)
+scale = Vector2(18.3, 0.99999994)
+
+[node name="StaticBlock2" parent="." instance=ExtResource("5_j02pt")]
+position = Vector2(536, 560)
+scale = Vector2(18.3, 0.99999994)
+
+[node name="StaticBlock4" parent="." instance=ExtResource("5_j02pt")]
+position = Vector2(-8, 752.00006)
+scale = Vector2(0.99999994, 5.5999994)
+
+[node name="StaticBlock5" parent="." instance=ExtResource("5_j02pt")]
+position = Vector2(1096, 752.00006)
+scale = Vector2(0.99999994, 5.5999994)
+
+[node name="StaticBlock3" parent="." instance=ExtResource("5_j02pt")]
+position = Vector2(528, 499.99997)
+scale = Vector2(5.7, 1.3999999)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+rotation = 0.7853982
+energy = 0.1
+shadow_enabled = true
+shadow_color = Color(1, 0.80719167, 0.79385, 0)
+shadow_filter_smooth = 49.0
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="LevelLabel" type="PanelContainer" parent="UI"]
+custom_minimum_size = Vector2(0, 40)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 65.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("6_kbpoh")
+script = ExtResource("7_2vffl")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/LevelLabel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="UI/LevelLabel/MarginContainer"]
+layout_mode = 2
+text = "Level 03 - Mirror you"
+horizontal_alignment = 1
+
+[node name="LevelRestarter" type="Node" parent="."]
+script = ExtResource("8_yk23b")
+
+[node name="LevelWinLogic" type="Node" parent="."]
+script = ExtResource("9_lflqe")
+next_level_num = 3

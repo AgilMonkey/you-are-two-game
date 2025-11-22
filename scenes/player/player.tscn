@@ -1,0 +1,67 @@
+[gd_scene load_steps=12 format=3 uid="uid://dsg7dc2qdbjxn"]
+
+[ext_resource type="Texture2D" uid="uid://5r5x2e543j3j" path="res://assets/simple_shapes/Square.png" id="1_8afob"]
+[ext_resource type="Script" uid="uid://bgwtpe4688whl" path="res://scenes/player/player.gd" id="1_gmlin"]
+[ext_resource type="Script" uid="uid://bos2i4x0rta1x" path="res://scenes/player/platformer_movement_2d.gd" id="2_dovo2"]
+[ext_resource type="Script" uid="uid://btxj2wrnkdw5f" path="res://src/force_color_paletter/force_color_paletter.gd" id="3_lvxji"]
+[ext_resource type="Script" uid="uid://dgkju5caqmkai" path="res://scenes/player/player_ground_ray.gd" id="5_0owmy"]
+[ext_resource type="AudioStream" uid="uid://d8sadhm6odk4" path="res://assets/sounds/jump.wav" id="5_75vfm"]
+[ext_resource type="Script" uid="uid://dc116ptp67vm1" path="res://scenes/player/player_jump_sound.gd" id="5_p47bc"]
+[ext_resource type="Script" uid="uid://cn0hx8gkd27ck" path="res://scenes/player/player_ground_shape_cast.gd" id="6_qek5x"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_lvxji"]
+polygon = PackedVector2Array(-16, -32, 16, -32, 16, 32, -16, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8afob"]
+size = Vector2(32, 64)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0owmy"]
+radius = 16.0
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 2
+collision_mask = 3
+platform_floor_layers = 4294967293
+script = ExtResource("1_gmlin")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_lvxji")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.9764706, 0.65882355, 0.45882353, 1)
+position = Vector2(0, -8.34465e-07)
+scale = Vector2(0.0625, 0.125)
+texture = ExtResource("1_8afob")
+
+[node name="ForceColorPaletter" type="Node" parent="Sprite2D"]
+script = ExtResource("3_lvxji")
+metadata/_custom_type_script = "uid://btxj2wrnkdw5f"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_8afob")
+
+[node name="PlatformerMovement2D" type="Node2D" parent="."]
+script = ExtResource("2_dovo2")
+
+[node name="PlayerGroundRay" type="RayCast2D" parent="."]
+process_mode = 4
+collision_mask = 2
+script = ExtResource("5_0owmy")
+og_layer = 3
+col_layer = 1
+
+[node name="PlayerGroundShapeCast" type="ShapeCast2D" parent="."]
+position = Vector2(0, 32)
+shape = SubResource("CircleShape2D_0owmy")
+target_position = Vector2(0, 0)
+collision_mask = 2
+script = ExtResource("6_qek5x")
+og_mask = 3
+col_mask = 1
+
+[node name="PlayerJumpSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_75vfm")
+script = ExtResource("5_p47bc")
+
+[connection signal="jumped" from="PlatformerMovement2D" to="PlayerJumpSound" method="play_random_jump_pitch"]

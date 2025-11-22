@@ -1,0 +1,173 @@
+[gd_scene load_steps=16 format=4 uid="uid://bpfxfim87lw7g"]
+
+[ext_resource type="PackedScene" uid="uid://ciux6r8k838u5" path="res://scenes/static_block/static_block.tscn" id="1_bajl1"]
+[ext_resource type="Texture2D" uid="uid://5r5x2e543j3j" path="res://assets/simple_shapes/Square.png" id="2_4bdgb"]
+[ext_resource type="PackedScene" uid="uid://dsg7dc2qdbjxn" path="res://scenes/player/player.tscn" id="2_wmna7"]
+[ext_resource type="Script" uid="uid://btxj2wrnkdw5f" path="res://src/force_color_paletter/force_color_paletter.gd" id="3_funr0"]
+[ext_resource type="PackedScene" uid="uid://bdaqiv3l6ndpk" path="res://scenes/win_door/win_door.tscn" id="4_bl2ec"]
+[ext_resource type="Theme" uid="uid://cf8hd5u4np84a" path="res://default_ui.tres" id="5_1hfvk"]
+[ext_resource type="Script" uid="uid://6en0s5x6k5gf" path="res://scenes/testing/level_label.gd" id="5_funr0"]
+[ext_resource type="PackedScene" uid="uid://cwdqwj2ysxnxb" path="res://scenes/tileset/default_tileset.tscn" id="8_ljt0q"]
+[ext_resource type="Script" uid="uid://4vx8q8cnvkbh" path="res://scenes/testing/quick_test_moving_platform.gd" id="9_obr3i"]
+
+[sub_resource type="Curve2D" id="Curve2D_ljt0q"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 984, 584, 0, 0, 0, 0, 984, 256, 0, 0, 0, 0, 576, 256)
+}
+point_count = 3
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ae8ne"]
+polygon = PackedVector2Array(-36, -36, 28, -36, 28, 28, -36, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bajl1"]
+size = Vector2(64, 64)
+
+[sub_resource type="Animation" id="Animation_obr3i"]
+resource_name = "loop_path"
+length = 3.0
+loop_mode = 2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_yradw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yradw"]
+_data = {
+&"RESET": SubResource("Animation_yradw"),
+&"loop_path": SubResource("Animation_obr3i")
+}
+
+[node name="LevelTesting" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+self_modulate = Color(0.4862745, 0.24705882, 0.34509805, 1)
+position = Vector2(652, 632)
+scale = Vector2(3.546875, 3.46875)
+texture = ExtResource("2_4bdgb")
+
+[node name="ForceColorPaletter" type="Node" parent="Background"]
+script = ExtResource("3_funr0")
+metadata/_custom_type_script = "uid://btxj2wrnkdw5f"
+
+[node name="WinDoor" parent="." instance=ExtResource("4_bl2ec")]
+position = Vector2(752, 546)
+
+[node name="Player" parent="." instance=ExtResource("2_wmna7")]
+position = Vector2(432, 768)
+
+[node name="Player2" parent="." instance=ExtResource("2_wmna7")]
+position = Vector2(984, 192)
+
+[node name="StaticBlock" parent="." instance=ExtResource("1_bajl1")]
+position = Vector2(544, 832)
+scale = Vector2(8.959999, 1)
+
+[node name="StaticBlock2" parent="." instance=ExtResource("1_bajl1")]
+position = Vector2(144, 688)
+scale = Vector2(2.6000001, 0.7)
+
+[node name="StaticBlock3" parent="." instance=ExtResource("1_bajl1")]
+position = Vector2(392, 568)
+scale = Vector2(2.6000001, 0.7)
+
+[node name="StaticBlock4" parent="." instance=ExtResource("1_bajl1")]
+position = Vector2(744, 568)
+scale = Vector2(2.6000001, 0.7)
+
+[node name="MovingPlatform" type="Path2D" parent="."]
+curve = SubResource("Curve2D_ljt0q")
+script = ExtResource("9_obr3i")
+
+[node name="MovingBlock" type="AnimatableBody2D" parent="MovingPlatform"]
+position = Vector2(984, 584)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="MovingPlatform/MovingBlock"]
+position = Vector2(4, 4)
+scale = Vector2(0.99999994, 0.99999994)
+occluder = SubResource("OccluderPolygon2D_ae8ne")
+
+[node name="Sprite2D" type="Sprite2D" parent="MovingPlatform/MovingBlock"]
+self_modulate = Color(0.92156863, 0.41960785, 0.43529412, 1)
+scale = Vector2(0.12499999, 0.12499999)
+texture = ExtResource("2_4bdgb")
+
+[node name="ForceColorPaletter" type="Node" parent="MovingPlatform/MovingBlock/Sprite2D"]
+script = ExtResource("3_funr0")
+metadata/_custom_type_script = "uid://btxj2wrnkdw5f"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MovingPlatform/MovingBlock"]
+shape = SubResource("RectangleShape2D_bajl1")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="MovingPlatform"]
+position = Vector2(984, 584)
+rotates = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="MovingPlatform/PathFollow2D"]
+remote_path = NodePath("../../MovingBlock")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MovingPlatform"]
+callback_mode_process = 0
+libraries = {
+&"": SubResource("AnimationLibrary_yradw")
+}
+autoplay = "loop_path"
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+rotation = 0.7853982
+energy = 0.1
+shadow_enabled = true
+shadow_color = Color(1, 0.80719167, 0.79385, 0)
+shadow_filter_smooth = 49.0
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="LevelLabel" type="PanelContainer" parent="UI"]
+custom_minimum_size = Vector2(0, 40)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 65.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("5_1hfvk")
+script = ExtResource("5_funr0")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/LevelLabel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="UI/LevelLabel/MarginContainer"]
+layout_mode = 2
+text = "Level Test"
+horizontal_alignment = 1
+
+[node name="DefaultTileset" parent="." instance=ExtResource("8_ljt0q")]
+tile_map_data = PackedByteArray("AAAcABkAAAAAAAAAAAAbABkAAAAAAAAAAAAbABgAAAAAAAAAAAAcABgAAAAAAAAAAAAfABcAAAAAAAAAAAAeABcAAAAAAAAAAAAeABYAAAAAAAAAAAAfABYAAAAAAAAAAAAbABMAAAAAAAAAAAAaABMAAAAAAAAAAAAZABMAAAAAAAAAAAA=")

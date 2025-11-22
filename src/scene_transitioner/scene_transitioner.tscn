@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtci8j3w8spq2"]
+
+[ext_resource type="Texture2D" uid="uid://b1suahe7qfyrs" path="res://assets/simple_shapes/Circle.png" id="1_0bt51"]
+[ext_resource type="Script" uid="uid://da2xlkufl5y7e" path="res://src/scene_transitioner/scene_transitioner.gd" id="1_qq1xk"]
+[ext_resource type="Material" uid="uid://s48ua604dcqe" path="res://src/scene_transitioner/cut_out_trans_mat.tres" id="2_qq1xk"]
+
+[node name="SceneTransitioner" type="Control"]
+z_index = 100
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qq1xk")
+shader = ExtResource("2_qq1xk")
+
+[node name="TextureTrans" type="TextureRect" parent="."]
+modulate = Color(0.92156863, 0.41960785, 0.43529412, 1)
+z_index = 100
+material = ExtResource("2_qq1xk")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -860.0
+offset_top = -860.0
+offset_right = 860.0
+offset_bottom = 860.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_0bt51")

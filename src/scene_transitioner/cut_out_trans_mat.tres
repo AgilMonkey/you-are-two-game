@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://s48ua604dcqe"]
+
+[ext_resource type="Shader" uid="uid://bffbmd6hepj3c" path="res://src/scene_transitioner/cut_out.gdshader" id="1_ifjku"]
+
+[resource]
+shader = ExtResource("1_ifjku")
+shader_parameter/fill_amount = 0.400000019
+shader_parameter/mask_rotation = 0.0
+shader_parameter/mask_offset = Vector2(0, 0)
+shader_parameter/mask_size = Vector2(1, 1)
+shader_parameter/mask_rotation_pivot = Vector2(0.5, 0.5)
+shader_parameter/mask_scale_pivot = Vector2(0.5, 0.5)
+shader_parameter/invert_mask = false
+shader_parameter/use_different_texture = false

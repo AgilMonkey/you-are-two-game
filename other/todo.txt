@@ -1,0 +1,14 @@
+Backlog:
+
+
+TODO:
+Player:
+	Jumping variable
+	Animation
+
+DOING:
+Player:
+	Movement
+
+
+DONE:

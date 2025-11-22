@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://ciux6r8k838u5"]
+
+[ext_resource type="Texture2D" uid="uid://5r5x2e543j3j" path="res://assets/simple_shapes/Square.png" id="1_84e81"]
+[ext_resource type="Script" uid="uid://btxj2wrnkdw5f" path="res://src/force_color_paletter/force_color_paletter.gd" id="2_ae8ne"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bajl1"]
+size = Vector2(64, 64)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ae8ne"]
+polygon = PackedVector2Array(-36, -36, 28, -36, 28, 28, -36, 28)
+
+[node name="StaticBlock" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_bajl1")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+position = Vector2(3.9999998, 3.9999998)
+scale = Vector2(0.99999994, 0.99999994)
+occluder = SubResource("OccluderPolygon2D_ae8ne")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.92156863, 0.41960785, 0.43529412, 1)
+scale = Vector2(0.12499999, 0.12499999)
+texture = ExtResource("1_84e81")
+
+[node name="ForceColorPaletter" type="Node" parent="Sprite2D"]
+script = ExtResource("2_ae8ne")
+metadata/_custom_type_script = "uid://btxj2wrnkdw5f"

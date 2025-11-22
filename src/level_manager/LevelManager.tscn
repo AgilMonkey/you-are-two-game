@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://5yoij7cj2d5a"]
+
+[ext_resource type="Script" uid="uid://cm7t3lupol5fi" path="res://src/level_manager/level_manager.gd" id="1_iodiu"]
+[ext_resource type="PackedScene" uid="uid://dtci8j3w8spq2" path="res://src/scene_transitioner/scene_transitioner.tscn" id="1_v60e4"]
+[ext_resource type="AudioStream" uid="uid://c2p3sfv2lugtw" path="res://assets/sounds/reset.wav" id="3_hjtun"]
+
+[node name="LevelManager" type="Node"]
+script = ExtResource("1_iodiu")
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="SceneTransitioner" parent="UI" instance=ExtResource("1_v60e4")]
+mouse_filter = 2
+
+[node name="ResetSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_hjtun")

@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=3 uid="uid://5mhg5obx2g4t"]
+
+[ext_resource type="Theme" uid="uid://cf8hd5u4np84a" path="res://default_ui.tres" id="1_kq7ac"]
+[ext_resource type="Script" uid="uid://c2orp1yq8rc80" path="res://scenes/end_screen.gd" id="2_6e1uj"]
+
+[node name="EndScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_kq7ac")
+script = ExtResource("2_6e1uj")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.4862745, 0.24705882, 0.34509805, 1)
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -144.0
+offset_top = 132.0
+offset_right = 144.0
+offset_bottom = 196.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Go back to level 1"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -22.0
+offset_right = 20.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Thanks for playing
+(I ran out of time)"
+horizontal_alignment = 1
+
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
