@@ -3,12 +3,15 @@ extends Node2D
 
 
 signal jumped
+signal start_falling
+signal just_hit_floor_after_falling
 
 @export var speed := 300.0
 
 @export var jump_force := -700.0
 @export var var_jump_pulldown_f := 3500.0
 
+var is_falling := false
 var _is_jumping := false
 
 @onready var body: CharacterBody2D = get_parent()
@@ -32,6 +35,8 @@ func _physics_process(delta: float) -> void:
 	
 	if _is_jumping and body.velocity.y > 0.0:
 		_is_jumping = false
+		is_falling = true
+		start_falling.emit()
 	
 	var _is_jump_inp_pressed = Input.is_action_pressed("jump")
 	var _should_var_jump = not _is_jump_inp_pressed and _is_jumping
@@ -41,5 +46,10 @@ func _physics_process(delta: float) -> void:
 	else:
 		# Normal Gravity
 		body.velocity.y += gravity_y * delta
+	
+	if is_falling:
+		if body.is_on_floor():
+			is_falling = false
+			just_hit_floor_after_falling.emit()
 	
 	body.move_and_slide()

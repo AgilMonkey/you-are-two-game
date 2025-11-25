@@ -1,16 +1,23 @@
-[gd_scene load_steps=12 format=3 uid="uid://dsg7dc2qdbjxn"]
+[gd_scene load_steps=15 format=3 uid="uid://dsg7dc2qdbjxn"]
 
 [ext_resource type="Texture2D" uid="uid://5r5x2e543j3j" path="res://assets/simple_shapes/Square.png" id="1_8afob"]
 [ext_resource type="Script" uid="uid://bgwtpe4688whl" path="res://scenes/player/player.gd" id="1_gmlin"]
+[ext_resource type="Shader" uid="uid://u3huyxvocs0p" path="res://scenes/testing/sprite_skew_shader/sprite_skew_shader.gdshader" id="2_5gtgg"]
 [ext_resource type="Script" uid="uid://bos2i4x0rta1x" path="res://scenes/player/platformer_movement_2d.gd" id="2_dovo2"]
 [ext_resource type="Script" uid="uid://btxj2wrnkdw5f" path="res://src/force_color_paletter/force_color_paletter.gd" id="3_lvxji"]
 [ext_resource type="Script" uid="uid://dgkju5caqmkai" path="res://scenes/player/player_ground_ray.gd" id="5_0owmy"]
 [ext_resource type="AudioStream" uid="uid://d8sadhm6odk4" path="res://assets/sounds/jump.wav" id="5_75vfm"]
 [ext_resource type="Script" uid="uid://dc116ptp67vm1" path="res://scenes/player/player_jump_sound.gd" id="5_p47bc"]
 [ext_resource type="Script" uid="uid://cn0hx8gkd27ck" path="res://scenes/player/player_ground_shape_cast.gd" id="6_qek5x"]
+[ext_resource type="Script" uid="uid://2u6j7qg0uxrl" path="res://scenes/player/player_animation.gd" id="10_h17s1"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_lvxji"]
 polygon = PackedVector2Array(-16, -32, 16, -32, 16, 32, -16, 32)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h17s1"]
+resource_local_to_scene = true
+shader = ExtResource("2_5gtgg")
+shader_parameter/strength = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8afob"]
 size = Vector2(32, 64)
@@ -27,13 +34,17 @@ script = ExtResource("1_gmlin")
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_lvxji")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="SpritePivot" type="Node2D" parent="."]
+position = Vector2(0, 32)
+
+[node name="Sprite2D" type="Sprite2D" parent="SpritePivot"]
 self_modulate = Color(0.9764706, 0.65882355, 0.45882353, 1)
-position = Vector2(0, -8.34465e-07)
+material = SubResource("ShaderMaterial_h17s1")
+position = Vector2(0, -32)
 scale = Vector2(0.0625, 0.125)
 texture = ExtResource("1_8afob")
 
-[node name="ForceColorPaletter" type="Node" parent="Sprite2D"]
+[node name="ForceColorPaletter" type="Node" parent="SpritePivot/Sprite2D"]
 script = ExtResource("3_lvxji")
 metadata/_custom_type_script = "uid://btxj2wrnkdw5f"
 
@@ -59,6 +70,9 @@ collision_mask = 2
 script = ExtResource("6_qek5x")
 og_mask = 3
 col_mask = 1
+
+[node name="PlayerAnimation" type="Node2D" parent="."]
+script = ExtResource("10_h17s1")
 
 [node name="PlayerJumpSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_75vfm")

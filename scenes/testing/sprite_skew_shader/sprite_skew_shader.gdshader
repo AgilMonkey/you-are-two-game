@@ -1,8 +1,9 @@
 shader_type canvas_item;
 
-uniform float strength = 0.5;
+uniform float strength = 0.0;
 
 void vertex() {
-	if (VERTEX.y == 0.0)
-    	VERTEX.x += strength * 10.0;
+	if (VERTEX.y < 1.0) {
+		VERTEX.x += strength;
+	}
 }
