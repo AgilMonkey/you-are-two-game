@@ -26,9 +26,9 @@ shader_parameter/gradientTexture = SubResource("GradientTexture1D_fm80t")
 
 [sub_resource type="Curve2D" id="Curve2D_ljt0q"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 984, 584, 0, 0, 0, 0, 984, 256, 0, 0, 0, 0, 576, 256)
+"points": PackedVector2Array(0, 0, 0, 0, 984, 584, 0, 0, 0, 0, 984, 256)
 }
-point_count = 3
+point_count = 2
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ae8ne"]
 polygon = PackedVector2Array(-36, -36, 28, -36, 28, 28, -36, 28)
@@ -96,11 +96,14 @@ polygon = PackedVector2Array(1504, -288, 1040, 1032, -232, 1488, -168, -224)
 position = Vector2(752, 546)
 
 [node name="Player" parent="." instance=ExtResource("2_wmna7")]
-position = Vector2(432, 768)
+position = Vector2(984, 392)
+
+[node name="Player2" parent="." instance=ExtResource("2_wmna7")]
+position = Vector2(984, 328)
 
 [node name="StaticBlock" parent="." instance=ExtResource("1_bajl1")]
-position = Vector2(512, 824)
-scale = Vector2(9.900001, 0.7)
+position = Vector2(512, 832)
+scale = Vector2(10, 1)
 
 [node name="StaticBlock2" parent="." instance=ExtResource("1_bajl1")]
 position = Vector2(144, 688)
@@ -159,6 +162,9 @@ energy = 0.1
 shadow_color = Color(1, 0.80719167, 0.79385, 0)
 shadow_filter_smooth = 49.0
 
+[node name="DefaultTileset" parent="." instance=ExtResource("8_ljt0q")]
+tile_map_data = PackedByteArray("AAAcABkAAAAAAAAAAAAbABkAAAAAAAAAAAAbABgAAAAAAAAAAAAcABgAAAAAAAAAAAAfABcAAAAAAAAAAAAeABcAAAAAAAAAAAAeABYAAAAAAAAAAAAfABYAAAAAAAAAAAAbABMAAAAAAAAAAAAaABMAAAAAAAAAAAAZABMAAAAAAAAAAAAAAP//AAAAAAAAAAA=")
+
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="LevelLabel" type="PanelContainer" parent="UI"]
@@ -184,6 +190,3 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 text = "Level Test"
 horizontal_alignment = 1
-
-[node name="DefaultTileset" parent="." instance=ExtResource("8_ljt0q")]
-tile_map_data = PackedByteArray("AAAcABkAAAAAAAAAAAAbABkAAAAAAAAAAAAbABgAAAAAAAAAAAAcABgAAAAAAAAAAAAfABcAAAAAAAAAAAAeABcAAAAAAAAAAAAeABYAAAAAAAAAAAAfABYAAAAAAAAAAAAbABMAAAAAAAAAAAAaABMAAAAAAAAAAAAZABMAAAAAAAAAAAA=")

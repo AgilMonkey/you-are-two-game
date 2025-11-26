@@ -1,3 +1,4 @@
+class_name PlayerGroundShapeCast
 extends ShapeCast2D
 
 
@@ -6,6 +7,7 @@ extends ShapeCast2D
 
 var last_p_col: CharacterBody2D
 @onready var player: CharacterBody2D = $".."
+
 
 func _physics_process(_delta: float) -> void:
 	if player.is_on_ceiling() and last_p_col != null:

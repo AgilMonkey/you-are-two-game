@@ -11,24 +11,33 @@ signal just_hit_floor_after_falling
 @export var jump_force := -700.0
 @export var var_jump_pulldown_f := 3500.0
 
+@export_flags_2d_physics var floor_layer_og
+@export_flags_2d_physics var floor_layer_on_top_p
+
 var is_falling := false
+var is_on_top_of_another_player := false
 var _is_jumping := false
 
 @onready var body: CharacterBody2D = get_parent()
 @onready var gravity_y: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var player_ground_ray: RayCast2D = $"../PlayerGroundRay"
-@onready var player_ground_shape_cast: ShapeCast2D = $"../PlayerGroundShapeCast"
-
+@onready var player_ground_shape_cast: PlayerGroundShapeCast = $"../PlayerGroundShapeCast"
 
 
 func _physics_process(delta: float) -> void:
+	is_on_top_of_another_player = player_ground_shape_cast.is_colliding()
+	
 	# Horizontal movement
 	var _inp_hor = Input.get_axis("move_left", "move_right")
+	
 	
 	body.velocity.x = _inp_hor * speed
 	
 	# Jumping
-	if Input.is_action_just_pressed("jump") and (body.is_on_floor() or player_ground_shape_cast.is_colliding()):
+	if (
+		Input.is_action_just_pressed("jump") and 
+		(body.is_on_floor() or player_ground_shape_cast.is_colliding())
+		):
 		_is_jumping = true
 		body.velocity.y = jump_force
 		jumped.emit()
@@ -47,9 +56,15 @@ func _physics_process(delta: float) -> void:
 		# Normal Gravity
 		body.velocity.y += gravity_y * delta
 	
+	if not body.is_on_floor() and body.velocity.y >= 1.0: is_falling = true
+	
 	if is_falling:
 		if body.is_on_floor():
 			is_falling = false
 			just_hit_floor_after_falling.emit()
+	
+	if is_on_top_of_another_player and body.is_on_floor():
+		body.velocity.y = 1000.0
+		body.velocity.x = 0.0
 	
 	body.move_and_slide()
