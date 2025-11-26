@@ -64,7 +64,6 @@ func _physics_process(delta: float) -> void:
 			just_hit_floor_after_falling.emit()
 	
 	if is_on_top_of_another_player and body.is_on_floor():
-		body.velocity.y = 1000.0
 		body.velocity.x = 0.0
 	
 	body.move_and_slide()
