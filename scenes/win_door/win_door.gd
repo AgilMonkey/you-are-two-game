@@ -11,8 +11,9 @@ var is_door_touched := false
 @export var color_yes_player: Color
 
 @onready var win_area: Area2D = $WinArea
-@onready var sprites: Node2D = $Sprites
 @onready var door_sound: AudioStreamPlayer = $DoorSound
+@onready var door_sprite: Sprite2D = $Sprites/DoorSprite
+@onready var arrow_down_sprite: Sprite2D = $Sprites/ArrowDownSprite
 
 
 func _ready() -> void:
@@ -21,7 +22,8 @@ func _ready() -> void:
 
 
 func _body_entered(_body):
-	sprites.modulate = color_no_player
+	door_sprite.self_modulate = color_no_player
+	arrow_down_sprite.self_modulate = color_no_player
 	var bodies := win_area.get_overlapping_bodies()
 	for _b in bodies:
 		if _b.is_in_group("player"):
@@ -29,16 +31,19 @@ func _body_entered(_body):
 				door_sound.play()
 			is_door_touched = true
 			door_just_touched.emit()
-			sprites.modulate = color_yes_player
+			door_sprite.self_modulate = color_yes_player
+			arrow_down_sprite.self_modulate = color_yes_player
 			break
 
 
 func _body_exit(_body):
 	is_door_touched = false
-	sprites.modulate = color_no_player
+	door_sprite.self_modulate = color_no_player
+	arrow_down_sprite.self_modulate = color_no_player
 	var bodies := win_area.get_overlapping_bodies()
 	for _b in bodies:
 		if _b.is_in_group("player"):
 			is_door_touched = true
-			sprites.modulate = color_yes_player
+			door_sprite.self_modulate = color_yes_player
+			arrow_down_sprite.self_modulate = color_yes_player
 			break

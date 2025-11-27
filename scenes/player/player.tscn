@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dsg7dc2qdbjxn"]
+[gd_scene load_steps=17 format=3 uid="uid://dsg7dc2qdbjxn"]
 
 [ext_resource type="Texture2D" uid="uid://5r5x2e543j3j" path="res://assets/simple_shapes/Square.png" id="1_8afob"]
 [ext_resource type="Script" uid="uid://bgwtpe4688whl" path="res://scenes/player/player.gd" id="1_gmlin"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://dc116ptp67vm1" path="res://scenes/player/player_jump_sound.gd" id="5_p47bc"]
 [ext_resource type="Script" uid="uid://cn0hx8gkd27ck" path="res://scenes/player/player_ground_shape_cast.gd" id="6_qek5x"]
 [ext_resource type="Script" uid="uid://2u6j7qg0uxrl" path="res://scenes/player/player_animation.gd" id="10_h17s1"]
+[ext_resource type="Script" uid="uid://pxtuaefrg8os" path="res://scenes/player/spike_check.gd" id="11_je7p5"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_lvxji"]
 polygon = PackedVector2Array(-16, -32, 16, -32, 16, 32, -16, 32)
@@ -25,9 +26,12 @@ size = Vector2(32, 64)
 [sub_resource type="CircleShape2D" id="CircleShape2D_0owmy"]
 radius = 16.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h17s1"]
+size = Vector2(34, 66)
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
-collision_mask = 3
+collision_mask = 7
 script = ExtResource("1_gmlin")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
@@ -67,8 +71,8 @@ shape = SubResource("CircleShape2D_0owmy")
 target_position = Vector2(0, 0)
 collision_mask = 2
 script = ExtResource("6_qek5x")
-og_mask = 3
-col_mask = 1
+og_mask = 7
+col_mask = 5
 
 [node name="PlayerAnimation" type="Node2D" parent="."]
 script = ExtResource("10_h17s1")
@@ -76,5 +80,13 @@ script = ExtResource("10_h17s1")
 [node name="PlayerJumpSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_75vfm")
 script = ExtResource("5_p47bc")
+
+[node name="SpikeCheck" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("11_je7p5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpikeCheck"]
+shape = SubResource("RectangleShape2D_h17s1")
 
 [connection signal="jumped" from="PlatformerMovement2D" to="PlayerJumpSound" method="play_random_jump_pitch"]

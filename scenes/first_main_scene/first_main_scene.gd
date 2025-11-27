@@ -7,7 +7,7 @@ extends Node2D
 
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("start_game"):
-		LevelManager.change_level(LevelManager.LEVEL_01)
+		LevelManager.change_level(LevelManager.LEVEL_SELECT_SCREEN)
 
 
 func _ready() -> void:

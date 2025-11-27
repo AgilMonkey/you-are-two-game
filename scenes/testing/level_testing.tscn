@@ -1,28 +1,16 @@
-[gd_scene load_steps=20 format=4 uid="uid://bpfxfim87lw7g"]
+[gd_scene load_steps=18 format=4 uid="uid://bpfxfim87lw7g"]
 
 [ext_resource type="PackedScene" uid="uid://ciux6r8k838u5" path="res://scenes/static_block/static_block.tscn" id="1_bajl1"]
 [ext_resource type="Texture2D" uid="uid://5r5x2e543j3j" path="res://assets/simple_shapes/Square.png" id="2_4bdgb"]
 [ext_resource type="PackedScene" uid="uid://dsg7dc2qdbjxn" path="res://scenes/player/player.tscn" id="2_wmna7"]
 [ext_resource type="Script" uid="uid://btxj2wrnkdw5f" path="res://src/force_color_paletter/force_color_paletter.gd" id="3_funr0"]
+[ext_resource type="PackedScene" uid="uid://buuku0dc1g2u3" path="res://scenes/shadow_shader/shadow_shader.tscn" id="3_yradw"]
 [ext_resource type="PackedScene" uid="uid://bdaqiv3l6ndpk" path="res://scenes/win_door/win_door.tscn" id="4_bl2ec"]
 [ext_resource type="Theme" uid="uid://cf8hd5u4np84a" path="res://default_ui.tres" id="5_1hfvk"]
 [ext_resource type="Script" uid="uid://6en0s5x6k5gf" path="res://scenes/testing/level_label.gd" id="5_funr0"]
 [ext_resource type="PackedScene" uid="uid://cwdqwj2ysxnxb" path="res://scenes/tileset/default_tileset.tscn" id="8_ljt0q"]
 [ext_resource type="Script" uid="uid://4vx8q8cnvkbh" path="res://scenes/testing/quick_test_moving_platform.gd" id="9_obr3i"]
-[ext_resource type="Shader" uid="uid://dic7mimh168jr" path="res://shaders/shadow_shader_w_limit.gdshader" id="10_yradw"]
-
-[sub_resource type="Gradient" id="Gradient_ngc41"]
-offsets = PackedFloat32Array(0, 0.004201681)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_fm80t"]
-gradient = SubResource("Gradient_ngc41")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_iidwg"]
-shader = ExtResource("10_yradw")
-shader_parameter/color = Color(0, 0, 0, 0.078431375)
-shader_parameter/angle = 135.0000064125
-shader_parameter/max_dist = 58.5190027796525
-shader_parameter/gradientTexture = SubResource("GradientTexture1D_fm80t")
+[ext_resource type="Script" uid="uid://dx64mxyc7jqt5" path="res://src/level_restarter/level_restarter.gd" id="11_ngc41"]
 
 [sub_resource type="Curve2D" id="Curve2D_ljt0q"]
 _data = {
@@ -88,9 +76,7 @@ texture = ExtResource("2_4bdgb")
 script = ExtResource("3_funr0")
 metadata/_custom_type_script = "uid://btxj2wrnkdw5f"
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-material = SubResource("ShaderMaterial_iidwg")
-polygon = PackedVector2Array(1504, -288, 1040, 1032, -232, 1488, -168, -224)
+[node name="ShadowShader" parent="." instance=ExtResource("3_yradw")]
 
 [node name="WinDoor" parent="." instance=ExtResource("4_bl2ec")]
 position = Vector2(752, 546)
@@ -163,7 +149,7 @@ shadow_color = Color(1, 0.80719167, 0.79385, 0)
 shadow_filter_smooth = 49.0
 
 [node name="DefaultTileset" parent="." instance=ExtResource("8_ljt0q")]
-tile_map_data = PackedByteArray("AAAcABkAAAAAAAAAAAAbABkAAAAAAAAAAAAbABgAAAAAAAAAAAAcABgAAAAAAAAAAAAfABcAAAAAAAAAAAAeABcAAAAAAAAAAAAeABYAAAAAAAAAAAAfABYAAAAAAAAAAAAbABMAAAAAAAAAAAAaABMAAAAAAAAAAAAZABMAAAAAAAAAAAAAAP//AAAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAAcABkAAAAAAAAAAAAbABkAAAAAAAAAAAAbABgAAAAAAAAAAAAcABgAAAAAAAAAAAAfABcAAAAAAAAAAAAeABcAAAAAAAAAAAAeABYAAAAAAAAAAAAfABYAAAAAAAAAAAAbABMAAAAAAAAAAAAaABMAAAAAAAAAAAAZABMAAAAAAAAAAAAAAP//AAAAAAAAAAARABgAAwAAAAAAAAASABgAAwAAAAAAAAATABgAAwAAAAAAAAA=")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -190,3 +176,7 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 text = "Level Test"
 horizontal_alignment = 1
+
+[node name="LevelRestarter" type="Node" parent="."]
+script = ExtResource("11_ngc41")
+metadata/_custom_type_script = "uid://dx64mxyc7jqt5"

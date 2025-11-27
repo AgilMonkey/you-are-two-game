@@ -14,12 +14,17 @@ color_no_player = Color(0.9764706, 0.65882355, 0.45882353, 1)
 color_yes_player = Color(1, 0.9647059, 0.827451, 1)
 
 [node name="Sprites" type="Node2D" parent="."]
-modulate = Color(1, 0.9647059, 0.827451, 1)
 position = Vector2(0, -32)
 
 [node name="DoorSprite" type="Sprite2D" parent="Sprites"]
 position = Vector2(0, -8.000002)
 scale = Vector2(0.09375, 0.15625)
+texture = ExtResource("2_c0i8q")
+
+[node name="DoorSpriteInside" type="Sprite2D" parent="Sprites/DoorSprite"]
+self_modulate = Color(0.4862745, 0.24705882, 0.34509805, 1)
+position = Vector2(-9.536743e-06, 1.8119812e-05)
+scale = Vector2(0.8333334, 0.90000004)
 texture = ExtResource("2_c0i8q")
 
 [node name="ArrowDownSprite" type="Sprite2D" parent="Sprites"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dnxgbp16nxprc"]
+[gd_scene load_steps=11 format=3 uid="uid://dnxgbp16nxprc"]
 
 [ext_resource type="Texture2D" uid="uid://5r5x2e543j3j" path="res://assets/simple_shapes/Square.png" id="1_my5yg"]
 [ext_resource type="Script" uid="uid://btxj2wrnkdw5f" path="res://src/force_color_paletter/force_color_paletter.gd" id="2_e5q73"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://6en0s5x6k5gf" path="res://scenes/testing/level_label.gd" id="7_r8rdt"]
 [ext_resource type="Script" uid="uid://dx64mxyc7jqt5" path="res://src/level_restarter/level_restarter.gd" id="8_a7arc"]
 [ext_resource type="Script" uid="uid://bgqtu27wpxawk" path="res://src/level_win_logic/level_win_logic.gd" id="9_nt34b"]
+[ext_resource type="PackedScene" uid="uid://buuku0dc1g2u3" path="res://scenes/shadow_shader/shadow_shader.tscn" id="10_7f7yp"]
 
 [node name="Level01" type="Node2D"]
 
@@ -22,6 +23,8 @@ texture = ExtResource("1_my5yg")
 script = ExtResource("2_e5q73")
 metadata/_custom_type_script = "uid://btxj2wrnkdw5f"
 
+[node name="ShadowShader" parent="." instance=ExtResource("10_7f7yp")]
+
 [node name="WinDoor" parent="." instance=ExtResource("3_yi6nc")]
 position = Vector2(932, 800)
 
@@ -31,13 +34,6 @@ position = Vector2(132, 768)
 [node name="StaticBlock" parent="." instance=ExtResource("5_wjpuk")]
 position = Vector2(544, 832)
 scale = Vector2(14.799999, 0.99999994)
-
-[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
-rotation = 0.7853982
-energy = 0.1
-shadow_enabled = true
-shadow_color = Color(1, 0.80719167, 0.79385, 0)
-shadow_filter_smooth = 49.0
 
 [node name="Tutorial" type="Label" parent="."]
 anchors_preset = 8
@@ -86,4 +82,4 @@ script = ExtResource("8_a7arc")
 
 [node name="LevelWinLogic" type="Node" parent="."]
 script = ExtResource("9_nt34b")
-next_level_num = 1
+next_level_num = 2

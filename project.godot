@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="GIMERSIA 2025"
-run/main_scene="uid://bpfxfim87lw7g"
+run/main_scene="uid://2yu705rtm6sh"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 LevelManager="*res://src/level_manager/LevelManager.tscn"
 MusicManager="*res://src/music_manager/music_manager.tscn"
+Global="*res://src/global/global.gd"
 
 [display]
 
@@ -62,6 +63,7 @@ restart_level={
 [layer_names]
 
 2d_physics/layer_2="player"
+2d_physics/layer_3="spike"
 
 [physics]
 

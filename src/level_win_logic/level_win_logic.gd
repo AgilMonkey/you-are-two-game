@@ -20,7 +20,16 @@ func _ready() -> void:
 
 
 func _win_level():
+	call_deferred("_stop_all_player")
 	LevelManager.change_to_level_num(next_level_num)
+
+
+func _stop_all_player():
+	var p : Array[Player] = []
+	p.append_array(get_tree().get_nodes_in_group("player"))
+	
+	for _p_n in p:
+		_p_n.stop_player()
 
 
 func _check_if_all_door_is_touched() -> bool:
